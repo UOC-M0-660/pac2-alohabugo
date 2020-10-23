@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
 import edu.uoc.pac2.data.Book
@@ -34,7 +37,7 @@ class BookListActivity : AppCompatActivity() {
 
         // TODO: Add books data to Firestore [Use once for new projects with empty Firestore Database]
         // Ejercicio 1
-        FirestoreBookData.addBooksDataToFirestoreDatabase()
+        // FirestoreBookData.addBooksDataToFirestoreDatabase()
 
     }
 
@@ -59,7 +62,22 @@ class BookListActivity : AppCompatActivity() {
     // TODO: Get Books and Update UI
     // Ejercicio 2
     private fun getBooks() {
+        // acceso a una instancia de Cloud Firestore desde activity
+        val firestoreDatabase = Firebase.firestore
+        // obtener info escuchando cambios
+        firestoreDatabase.collection("books")
+                .addSnapshotListener { querySnapshot, e ->
+                    if (e != null) {
+                        Log.w(TAG, "Listen failed.", e)
+                        return@addSnapshotListener
+                    }
+                    //convertir querySnapshot a un listado de Book
+                    val books: List<Book> = querySnapshot!!.documents.mapNotNull { it.toObject(Book::class.java) }
+                    Log.i(TAG, "Current books: $books")
 
+                    // actualizar UI
+                    adapter.setBooks(books);
+                }
     }
 
     // TODO: Load Books from Room

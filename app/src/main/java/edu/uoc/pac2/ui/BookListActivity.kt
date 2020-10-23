@@ -1,6 +1,7 @@
 package edu.uoc.pac2.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,6 +10,7 @@ import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
 import edu.uoc.pac2.data.Book
 import edu.uoc.pac2.data.BooksInteractor
+import edu.uoc.pac2.data.FirestoreBookData
 
 /**
  * An activity representing a list of Books.
@@ -31,6 +33,9 @@ class BookListActivity : AppCompatActivity() {
         getBooks()
 
         // TODO: Add books data to Firestore [Use once for new projects with empty Firestore Database]
+        // Ejercicio 1
+        FirestoreBookData.addBooksDataToFirestoreDatabase()
+
     }
 
     // Init Top Toolbar
@@ -52,6 +57,7 @@ class BookListActivity : AppCompatActivity() {
     }
 
     // TODO: Get Books and Update UI
+    // Ejercicio 2
     private fun getBooks() {
 
     }

@@ -71,9 +71,15 @@ class BookListActivity : AppCompatActivity() {
                         Log.w(TAG, "Listen failed.", e)
                         return@addSnapshotListener
                     }
+                    if (querySnapshot == null ) {
+                        return@addSnapshotListener
+                    }
                     //convertir querySnapshot a un listado de Book
-                    val books: List<Book> = querySnapshot!!.documents.mapNotNull { it.toObject(Book::class.java) }
+                    val books: List<Book> = querySnapshot.documents.mapNotNull { it.toObject(Book::class.java) }
                     Log.i(TAG, "Current books: $books")
+
+                    // guardar datos recibido en local
+                    saveBooksToLocalDatabase(books)
 
                     // actualizar UI
                     adapter.setBooks(books);
@@ -87,6 +93,7 @@ class BookListActivity : AppCompatActivity() {
 
     // TODO: Save Books to Local Storage
     private fun saveBooksToLocalDatabase(books: List<Book>) {
-        throw NotImplementedError()
+        (applicationContext as MyApplication).getBooksInteractor().saveBooks(books)
+        // throw NotImplementedError()
     }
 }

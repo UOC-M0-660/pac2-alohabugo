@@ -1,6 +1,5 @@
 package edu.uoc.pac2.ui
 
-import android.app.ActivityOptions
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +17,20 @@ class BooksListAdapter(private var books: List<Book>) : RecyclerView.Adapter<Boo
 
     private val evenViewType = 0
     private val oddViewType = 1
+
+    private val mOnClickListener: View.OnClickListener
+    // inicializamos mOnClickListener
+    init {
+        mOnClickListener = View.OnClickListener { v ->
+            val book = v.tag as Book
+            //pasamos uid del libro actual a la Activity de detalle a través de un Intent
+            val intent = Intent(v.context, BookDetailActivity::class.java).apply {
+                putExtra(BookDetailFragment.ARG_ITEM_ID, book.uid)
+            }
+            // lanzamos la activity
+            v.context.startActivity(intent)
+        }
+    }
 
     private fun getBook(position: Int): Book {
         return books[position]
@@ -57,11 +70,17 @@ class BooksListAdapter(private var books: List<Book>) : RecyclerView.Adapter<Boo
 
     // Binds re-usable View for a given position
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        // obtenemos el libro de en esa posición
         val book = getBook(position)
         holder.titleView.text = book.title
         holder.authorView.text = book.author
 
         // TODO: Set View Click Listener
+        // para ese item establecemos el listener mOnClickListener
+        with(holder.itemView) {
+            tag = book
+            setOnClickListener(mOnClickListener)
+        }
     }
 
     // Returns total items in Adapter

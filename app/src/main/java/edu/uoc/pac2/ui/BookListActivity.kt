@@ -1,5 +1,6 @@
 package edu.uoc.pac2.ui
 
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -97,20 +98,22 @@ class BookListActivity : AppCompatActivity() {
     // TODO: Load Books from Room
     private fun loadBooksFromLocalDb() {
         // obtenemos todos los libros de la base de datos local
-        val books: List<Book> = mApp.getBooksInteractor().getAllBooks()
-        // actualizar UI
-        adapter.setBooks(books)
-
+        AsyncTask.execute(Runnable {
+            val books: List<Book> = mApp.getBooksInteractor().getAllBooks()
+            // actualizar UI
+            runOnUiThread(Runnable { adapter.setBooks(books) })
+        })
         //throw NotImplementedError()
     }
 
     // TODO: Save Books to Local Storage
     private fun saveBooksToLocalDatabase(books: List<Book>) {
         // guardar libros en base de datos local
-        mApp.getBooksInteractor().saveBooks(books)
-        // actualizar UI
-        adapter.setBooks(books)
-
+        AsyncTask.execute(Runnable {
+            mApp.getBooksInteractor().saveBooks(books)
+            // actualizar UI
+            runOnUiThread(Runnable { adapter.setBooks(books) })
+        })
         // throw NotImplementedError()
     }
 }

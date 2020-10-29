@@ -1,12 +1,18 @@
 package edu.uoc.pac2.ui
 
+import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.squareup.picasso.Picasso
+import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
 import edu.uoc.pac2.data.Book
+import kotlinx.android.synthetic.main.fragment_book_detail.*
 
 /**
  * A fragment representing a single Book detail screen.
@@ -25,15 +31,36 @@ class BookDetailFragment : Fragment() {
         loadBook()
     }
 
-
     // TODO: Get Book for the given {@param ARG_ITEM_ID} Book id
     private fun loadBook() {
-        throw NotImplementedError()
+        // cargamos el libro de la base de datos de Room mediante BooksInteractor
+        val booksInterator = (activity?.application as MyApplication).getBooksInteractor()
+        arguments?.let {
+            if (it.containsKey(ARG_ITEM_ID)) {
+                // obtenemos el libro a través del id
+                AsyncTask.execute(Runnable {
+                    val book = booksInterator.getBookById(it.getInt(ARG_ITEM_ID))
+                    // mostramos su detalle
+                    activity?.runOnUiThread(Runnable { initUI(book) })
+                })
+            }
+        }
+        // throw NotImplementedError()
     }
 
     // TODO: Init UI with book details
-    private fun initUI(book: Book) {
-        throw NotImplementedError()
+    private fun initUI(book: Book?) {
+        book?.let {
+            // titulo del libro
+            activity?.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)?.title = book.title
+            // para mostrar la imagen del libro se hace uso de la libreria Picasso
+            Picasso.get().load(book.urlImage).into(book_image)
+            // autor, fecha y descripcion del libro
+            book_author.text = book.author
+            book_date.text = book.publicationDate
+            book_detail.text = book.description
+        }
+        // throw NotImplementedError()
     }
 
     // TODO: Share Book Title and Image URL

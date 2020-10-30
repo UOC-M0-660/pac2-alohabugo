@@ -1,5 +1,6 @@
 package edu.uoc.pac2.ui
 
+import android.content.Intent
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
@@ -59,13 +61,27 @@ class BookDetailFragment : Fragment() {
             book_author.text = book.author
             book_date.text = book.publicationDate
             book_detail.text = book.description
+            // Establecemos el click listener al boton de compartir
+            val buttonMail = activity?.findViewById<FloatingActionButton>(R.id.fab)
+            buttonMail?.setOnClickListener {
+                shareContent(book)
+            }
         }
         // throw NotImplementedError()
     }
 
     // TODO: Share Book Title and Image URL
     private fun shareContent(book: Book) {
-        throw NotImplementedError()
+        // Ejercicio 5: Compartir libro con otras apps
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "Libro recomendado: '' ${book.title} '' URL: ${book.urlImage}")
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
+
+        // throw NotImplementedError()
     }
 
     companion object {

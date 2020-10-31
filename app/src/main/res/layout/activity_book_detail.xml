@@ -24,6 +24,25 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:foreground="?attr/selectableItemBackground"
+                android:orientation="vertical"
+                app:layout_collapseMode="parallax">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/el_juego_de_ender"
+                    android:id="@+id/topBarImage"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax">
+                </ImageView>
+
+            </FrameLayout>
+
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/detail_toolbar"
                 android:layout_width="match_parent"

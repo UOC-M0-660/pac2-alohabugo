@@ -6,46 +6,28 @@
     android:layout_height="match_parent"
     tools:context="edu.uoc.pac2.ui.BookDetailFragment">
 
-    <ImageView
-        android:id="@+id/book_image"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/fab_margin"
-        android:layout_marginLeft="@dimen/fab_margin"
-        android:scaleType="fitStart"
-        android:src="@drawable/el_juego_de_ender"
-        android:contentDescription="@string/title_book_detail"
-        app:layout_constraintHeight_min="220dp"
-        app:layout_constraintWidth_percent=".4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/book_detail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/book_author" />
 
     <TextView
         android:id="@+id/book_author"
         style="?android:attr/textAppearanceLarge"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_margin="@dimen/fab_margin"
         android:text="Author"
         android:textIsSelectable="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/book_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_chainStyle="spread_inside" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/book_date"
         style="?android:attr/textAppearanceLarge"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
         android:text="Date"
         android:textIsSelectable="true"
-
-        app:layout_constraintTop_toBottomOf="@id/book_author"
-        app:layout_constraintStart_toEndOf="@id/book_image"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_author" />
 
     <TextView
         android:id="@+id/book_detail"
@@ -53,9 +35,10 @@
         android:layout_height="wrap_content"
         style="?android:attr/textAppearanceMedium"
         android:textIsSelectable="true"
+        android:layout_margin="@dimen/fab_margin"
         android:text="Description"
-        app:layout_constraintTop_toBottomOf="@id/book_date"
-        app:layout_constraintStart_toEndOf="@id/book_image"
-        app:layout_constraintWidth_percent=".54" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

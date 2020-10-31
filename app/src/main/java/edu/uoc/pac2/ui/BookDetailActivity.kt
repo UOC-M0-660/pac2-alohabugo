@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import edu.uoc.pac2.R
+import kotlinx.android.synthetic.main.activity_book_detail.*
 
 /**
  * An activity representing a single Book detail screen.
@@ -23,6 +24,11 @@ class BookDetailActivity : AppCompatActivity() {
         //
         // http://developer.android.com/guide/components/fragments.html
         //
+
+        // Show the Up button in the action bar.
+        setSupportActionBar(detail_toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
@@ -36,12 +42,22 @@ class BookDetailActivity : AppCompatActivity() {
 
     // TODO: Override finish animation for actionbar back arrow
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                // al pulsar botón volver la pantalla desaparece de arriba a abajo
+                overridePendingTransition(0, R.anim.translate_out_top)
+                return true
+            }
+        }
         return super.onOptionsItemSelected(item)
     }
 
     // TODO: Override finish animation for phone back button
     override fun onBackPressed() {
         super.onBackPressed()
+        // al pulsar botón volver la pantalla desaparece de arriba a abajo
+        overridePendingTransition(0, R.anim.translate_out_top)
     }
 
 }

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -14,6 +15,7 @@ import com.squareup.picasso.Picasso
 import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
 import edu.uoc.pac2.data.Book
+import kotlinx.android.synthetic.main.activity_book_detail.*
 import kotlinx.android.synthetic.main.fragment_book_detail.*
 
 /**
@@ -56,7 +58,8 @@ class BookDetailFragment : Fragment() {
             // titulo del libro
             activity?.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)?.title = book.title
             // para mostrar la imagen del libro se hace uso de la libreria Picasso
-            Picasso.get().load(book.urlImage).into(book_image)
+            var topBarImage = activity?.findViewById<ImageView>(R.id.topBarImage)
+            Picasso.get().load(book.urlImage).into(topBarImage)
             // autor, fecha y descripcion del libro
             book_author.text = book.author
             book_date.text = book.publicationDate
@@ -75,7 +78,7 @@ class BookDetailFragment : Fragment() {
         // Ejercicio 5: Compartir libro con otras apps
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "Libro recomendado: '' ${book.title} '' URL: ${book.urlImage}")
+            putExtra(Intent.EXTRA_TEXT, "Libro recomendado: ''${book.title}'' URL: ${book.urlImage}")
             type = "text/plain"
         }
         val shareIntent = Intent.createChooser(sendIntent, null)

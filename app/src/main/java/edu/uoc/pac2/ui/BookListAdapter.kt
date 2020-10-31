@@ -1,5 +1,6 @@
 package edu.uoc.pac2.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +30,8 @@ class BooksListAdapter(private var books: List<Book>) : RecyclerView.Adapter<Boo
             }
             // lanzamos la activity
             v.context.startActivity(intent)
+            // Ejer6: al lanzar la activiy la pantalla aparece de abajo hacia arriba
+            (v.context as Activity).overridePendingTransition(R.anim.translate_in_bottom, R.anim.translate_out_bottom)
         }
     }
 

@@ -24,6 +24,10 @@
             android:name="edu.uoc.pac2.ui.BookDetailActivity"
             android:label="@string/title_book_detail"
             android:parentActivityName="edu.uoc.pac2.ui.BookListActivity"/>
+        <!-- AdMob App ID: ca-app-pub-5248981382132643~3670749176 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-5248981382132643~3670749176"/>
     </application>
 
 </manifest>

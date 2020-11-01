@@ -7,6 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -15,6 +19,7 @@ import edu.uoc.pac2.R
 import edu.uoc.pac2.data.Book
 import edu.uoc.pac2.data.BooksInteractor
 import edu.uoc.pac2.data.FirestoreBookData
+import java.util.*
 
 /**
  * An activity representing a list of Books.
@@ -39,6 +44,12 @@ class BookListActivity : AppCompatActivity() {
 
         // Get Books
         getBooks()
+
+        // Añadir anuncio en app emulador
+        val mAdView = findViewById(R.id.adView) as AdView
+        val adRequest = AdRequest.Builder()
+                .build()
+        mAdView.loadAd(adRequest)
 
         // TODO: Add books data to Firestore [Use once for new projects with empty Firestore Database]
         // Ejercicio 1

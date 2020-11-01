@@ -27,6 +27,17 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <include layout="@layout/view_book_list" />
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/google_admob_id">
+        </com.google.android.gms.ads.AdView>
+
     </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
